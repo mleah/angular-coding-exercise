@@ -6,7 +6,6 @@
 // -------------------------------------------------
 // import AUTH_KEYS from 'config/marvel.auth';
 // -------------------------------------------------
-
 const API_PARAM = 'apikey';
 
 export default () => {
@@ -17,9 +16,9 @@ export default () => {
       throw new Error(); // err message is irrelevant
     } else {
       return {
-        'request' : (config) => {
+        request : config => {
           config.params = config.params || {};
-          config.params[API_PARAM] = AUTH_KEYS.get('public');
+          config.params[API_PARAM] = publicKey;
           return config;
         }
       };
