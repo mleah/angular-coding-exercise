@@ -15,4 +15,4 @@ const extend = (base, extender) => {
   return base;
 };
 
-module.exports = extend;
+export default extend;

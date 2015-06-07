@@ -1,16 +1,17 @@
-const webpack = require('webpack');
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+
 const NODE_ENV = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const node_env = NODE_ENV.toLowerCase();
 
 // path helpers
-const root = path.resolve(__dirname, '../../../');
+const projectRoot = path.resolve(__dirname, '../../../');
 const resolve = function (localPath) {
-  return path.resolve(root, localPath);
+  return path.resolve(projectRoot, localPath);
 };
 
-module.exports = exports = {
+export default {
   entry : {
     app : [
       resolve('app/index')

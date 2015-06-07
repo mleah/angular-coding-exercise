@@ -1,6 +1,6 @@
-const merge = require('../utils/merge-deep');
+import merge from '../utils/merge-deep';
 
-module.exports = config => merge(
+export default config => merge(
   require('./configs/default'),
   require(`./configs/${config}`)
 );

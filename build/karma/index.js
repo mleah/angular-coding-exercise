@@ -1,9 +1,9 @@
-const path = require('path');
-const webpack   = require('webpack');
-const APP_ENTRY = 'app/test.js';
-const WEBPACK_CONFIG = require('../webpack/make')('development');
+import path from 'path';
+import makeWebpackConfig from '../webpack/make';
 
-module.exports = config => {
+const WEBPACK_CONFIG = makeWebpackConfig('development');
+
+export default config => {
   config.set({
     files : [
       'app/index.js',
