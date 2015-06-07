@@ -17,7 +17,7 @@
 // ------------------------------------
 import angular from 'angular';
 import MarvelApiInterceptor from './interceptor';
-const MARVEL_API = 'http://gateway.marvel.com/v1/public';
+const MARVEL_API_URL = 'http://gateway.marvel.com/v1/public';
 
 // ------------------------------------
 // Marvel Service Definition
@@ -57,14 +57,14 @@ class MarvelService {
 
   // Handles the actual process of making the API request, all methods
   // should route through this.
-  // [String] RequestType - HTTP Verb (GET/POST/etc.)
+  // [String] Method - HTTP Verb (GET/POST/etc.)
   // [String] Resource - The API resource to be accessed.
   // (Optional) [Object] Config - Additional request configuration.
   // Returns -> Promise -> (Response, Error)
-  dispatch (requestType, resource, config) {
-    const endpoint = [MARVEL_API, resource].join('/');
+  dispatch (method, endpoint, config) {
+    const qualifiedUrl = `${MARVEL_API_URL}/${endpoint}`;
 
-    return this._$http[requestType.toLowerCase()](endpoint, config);
+    return this._$http[method.toLowerCase()](qualifiedUrl, config);
   }
 }
 MarvelService.$inject = ['$http'];
