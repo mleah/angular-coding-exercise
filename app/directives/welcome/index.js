@@ -10,46 +10,56 @@
 // ------------------------------------
 import angular from 'angular';
 import template from './welcome.jade';
-import { name as MarvelServiceModule } from 'services/marvel';
-import { name as StatusBarModule } from 'directives/status-bar';
+import {
+    name as MarvelServiceModule
+}
+from 'services/marvel';
+import {
+    name as StatusBarModule
+}
+from 'directives/status-bar';
 import './welcome.scss';
 
 /* @ngInject */
-function gsWelcomeController (MarvelService) {
-  const dm = this;
-  dm.state = {};
+function gsWelcomeController(MarvelService) {
+    const dm = this;
+    dm.state = {};
 
-  dm.init = function () {
-    setTimeout(dm.makeSampleRequest, 1000); // for dramatic effect
-  };
+    dm.init = function() {
+        setTimeout(dm.makeSampleRequest, 1000); // for dramatic effect
+    };
 
-  dm.makeSampleRequest = function () {
-    dm.state.connection = {};
+    dm.makeSampleRequest = function() {
+        dm.state.connection = {};
+        dm.characters = {};
 
-    // ping a known-good endpoint
-    MarvelService.getCharacters()
-      .then(() => dm.state.connection.success = true)
-      .catch(() => dm.state.connection.error = true)
-      .finally(() => dm.state.connection.complete = true);
-  };
+        MarvelService.getCharacters()
 
-  dm.init();
+        // ping a known-good endpoint
+        MarvelService.getCharacters()
+            .then(() => dm.state.connection.success = true)
+            .then(() => dm.characters = MarvelService.getCharacters())
+            .catch(() => dm.state.connection.error = true)
+            .finally(() => dm.state.connection.complete = true);
+    };
+
+    dm.init();
 }
 
-function gsWelcome () {
-  return {
-    scope : {
-      title : '@'
-    },
-    template : template,
-    controller : gsWelcomeController,
-    controllerAs : 'dm',
-    bindToController : true
-  };
+function gsWelcome() {
+    return {
+        scope: {
+            title: '@'
+        },
+        template: template,
+        controller: gsWelcomeController,
+        controllerAs: 'dm',
+        bindToController: true
+    };
 }
 
 export default angular.module('gstv.directives.welcome', [
-  MarvelServiceModule,
-  StatusBarModule
-])
-  .directive('gsWelcome', gsWelcome);
+        MarvelServiceModule,
+        StatusBarModule
+    ])
+    .directive('gsWelcome', gsWelcome);
